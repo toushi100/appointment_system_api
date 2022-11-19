@@ -22,11 +22,11 @@ class Doctor(models.Model):
     day = models.CharField(max_length=100)
     patient_appiontment = models.ManyToManyField(
         'PatientAppiontment', related_name='patient_appiontment', blank=True)
-    clinc = models.ForeignKey('Clinic', on_delete=models.DO_NOTHING,
-                              related_name='doctor_clinic', blank=True, null=True)
     care_room = models.ForeignKey('CareRoom', on_delete=models.DO_NOTHING)
     nursery_appiontment = models.ForeignKey('NurseryAppointment', on_delete=models.DO_NOTHING,
                                             related_name='nursery_appiontment', blank=True, null=True)
+    clinic_id = models.ForeignKey('Clinic', on_delete=models.DO_NOTHING,
+                              related_name='doctor_clinic', blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -34,9 +34,6 @@ class Doctor(models.Model):
 class Clinic(models.Model):
     capacity = models.IntegerField()
     type = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class CareRoom(models.Model):
@@ -47,8 +44,6 @@ class CareRoom(models.Model):
     national_id = models.CharField(max_length=100)
     type = models.CharField(max_length=100, choices=care_room_type)
 
-    def __str__(self):
-        return self.name
 
 
 class NurseryAppointment(models.Model):
@@ -86,7 +81,7 @@ class PatientAppiontment(models.Model):
     
 
     def __str__(self):
-        return self.patient_name
+        return f"{self.patient_firstname} {self.patient_lastname}"
 
 
 class BloodBank(models.Model):
