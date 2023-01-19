@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'api',
     'user',
 ]
@@ -135,3 +136,19 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "user.User"
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True    
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3001",
+#     "http://127.0.0.1:3001",
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+# ]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
