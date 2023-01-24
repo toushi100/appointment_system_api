@@ -44,8 +44,8 @@ class CareRoom(models.Model):
     doctor_name = models.CharField(max_length=100)
     available_room = models.CharField(max_length=100)
     care_room_type = models.CharField(max_length=100, choices=care_room_type)
-    doctors = models.ForeignKey(to=Doctor, related_name='care_room_doctor', blank=True, on_delete=models.CASCADE)
-    patients = models.ForeignKey(to='Patient', related_name='care_room_patient', blank=True, on_delete=models.CASCADE)
+    doctors = models.ForeignKey(Doctor, related_name='care_room_doctor', blank=True, on_delete=models.CASCADE)
+    patients = models.ForeignKey('Patient', related_name='care_room_patient', blank=True, on_delete=models.CASCADE)
 
 
 
@@ -65,8 +65,8 @@ class Nursery(models.Model):
     day_to = models.CharField(max_length=100)
     time_from = models.TimeField()
     time_to = models.TimeField()
-    doctor = models.ManyToManyField(to=Doctor, related_name='nursery_doctor', blank=True)
-    patient = models.ManyToManyField(to='Patient', related_name='nursery_patient', blank=True)
+    doctor = models.ManyToManyField(Doctor, related_name='nursery_doctor', blank=True)
+    patient = models.ManyToManyField('Patient', related_name='nursery_patient', blank=True)
 
     def __str__(self):
         return self.child_name
@@ -80,7 +80,7 @@ class Patient(models.Model):
     age = models.IntegerField()
     phone = models.CharField(max_length=100)
     gender = models.CharField(max_length=100, choices=gender)
-    doctors = models.ManyToManyField(to=Doctor, related_name='patient_doctor', through=CareRoom , blank=True)
+    doctors = models.ManyToManyField(Doctor, related_name='patient_doctor', through=CareRoom , blank=True)
 
     def __str__(self):
         return self.patient_name
@@ -94,7 +94,7 @@ class BloodBank(models.Model):
     price = models.IntegerField()
     anemia_name = models.IntegerField()
     order_id = models.IntegerField()
-    doctors = models.ManyToManyField(to=Doctor, related_name='blood_bank_doctor', blank=True)
+    doctors = models.ManyToManyField(Doctor, related_name='blood_bank_doctor', blank=True)
 
 
     def __str__(self):
@@ -111,7 +111,7 @@ class SurgicalOperation(models.Model):
     surgical_description = models.CharField(max_length=1000)
     price = models.IntegerField()
     doctor_name = models.CharField(max_length=100)
-    doctors  = models.ManyToManyField(to=Doctor, related_name='doctor', blank=True)
+    doctors  = models.ManyToManyField(Doctor, related_name='doctor', blank=True)
 
 
     def __str__(self):
@@ -132,6 +132,7 @@ class CentralCare(models.Model):
     patient_name = models.CharField(max_length=100)
     service_name = models.CharField(max_length=100)
     price = models.IntegerField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='central_care_patient')
 
     def __str__(self):
         return self.patient_name

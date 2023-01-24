@@ -54,10 +54,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f'{self.first_name} {self.last_name} '
 
-        
-# Create your models here.
-care_room_type = [
-    ('normal', 'Normal'),
-    ('intensive', 'Intensive'),
-]
-
