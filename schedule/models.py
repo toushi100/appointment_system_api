@@ -1,7 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from doctor.models import Doctor
-
 # Create your models here.
 DAYS = (
     ("sat", "Saturday"),
@@ -27,5 +26,6 @@ class Appointment(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     def __str__(self):
-        title  = f'{self.patient.id} {self.patient.name} {self.schedule.doctor.name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
-        return title
+        # title  = f'{self.patient.id} {self.patient.name} {self.schedule.doctor.name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
+        
+        return self.schedule.doctor.first_name
