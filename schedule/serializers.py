@@ -4,6 +4,11 @@ from .models import Schedule
 from . import models
 from doctor.serializers import DoctorSerializer
 
+
+class AppointmentSerializer(ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
 class ScheduleSerializer(ModelSerializer):
     days  = serializers.MultipleChoiceField(choices=models.DAYS)
     class Meta:
