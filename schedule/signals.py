@@ -12,9 +12,6 @@ def create_profile(sender, instance, created, **kwargs):
         appointement.run()
         
 
-
-
-
 class CreateAppointement:
     def __init__(self, start_time, end_time, days,schedule_id):
         self.start_time = start_time
