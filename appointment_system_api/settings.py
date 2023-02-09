@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'user',
     'doctor',
     'schedule',
+    'patient',
     'api',
 ]
 
