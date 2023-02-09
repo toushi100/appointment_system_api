@@ -8,7 +8,13 @@ from doctor.serializers import DoctorSerializer
 class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
-        fields = '__all__'
+        exclude = ['schedule']
+
+class ShowAppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        exclude = ['schedule']
+        depth = 1
 
 class ScheduleSerializer(serializers.ModelSerializer):
     days  = serializers.MultipleChoiceField(choices=models.DAYS)
@@ -27,5 +33,5 @@ class ShowScheduleSerializer(serializers.ModelSerializer):
     
     def get_appointments(self, obj):
         appointments = obj.appointment_set.all()
-        serializer = AppointmentSerializer(appointments, many=True)
+        serializer = ShowAppointmentSerializer(appointments, many=True)
         return serializer.data
