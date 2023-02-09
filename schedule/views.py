@@ -23,3 +23,15 @@ def show(request, pk):
     serializer = ShowScheduleSerializer(schedule, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
    
+@api_view(['put','patch'])
+@login_required
+def reserve(request, pk):
+    appointment = get_object_or_404(Appointment, id = pk)
+    user = request.user
+    if user.patient:
+        request.data['patient']=user.patient.id
+        serializer = AppointmentSerializer(appointment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
