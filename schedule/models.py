@@ -27,8 +27,8 @@ class Appointment(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     def __str__(self):
-        if not self.patient:
-            return f'{self.schedule.doctor.first_name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
-        patient_name = f'{self.patient.id}- {self.patient.first_name} {self.patient.middle_name} {self.patient.last_name}'
-        title  = f'{patient} {self.schedule.doctor.name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
-        return title
+        if self.patient:
+            patient= f'{self.patient.id}- {self.patient.first_name} {self.patient.middle_name} {self.patient.last_name}'
+            title  = f'{patient} {self.schedule.doctor.first_name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
+            return title
+        return f'{self.schedule.doctor.first_name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
