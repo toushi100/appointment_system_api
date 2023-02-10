@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'multiselectfield',
+    'django_crontab',
     'user',
     'doctor',
     'schedule',
@@ -144,5 +145,9 @@ CORS_ALLOW_METHODS = [
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=10)}
+
+CRONJOBS = [
+    ('0 0 * * *', 'schedule.cron.add_weekly_schedule')
+]
