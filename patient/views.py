@@ -1,17 +1,16 @@
 from rest_framework import status
-from .models import Doctor
-from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from user.models import User
-from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from .models import Patient
+from .serializers import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @api_view(['post'])
 @login_required
 def create(request):
     request.data['user']=request.user.id
-    serializer = DoctorSerializer(data=request.data)
+    serializer = PatientSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -19,18 +18,17 @@ def create(request):
 
 @api_view(['get'])
 def show(request, pk):
-    doctor = Doctor.objects.get(id = pk)
-    serializer = ShowDoctorSerializer(doctor, many=False)
+    patient = Patient.objects.get(id = pk)
+    serializer = ShowPatientSerializer(patient, many=False)
     return Response(serializer.data, status=200)
 
 @api_view(['put', 'patch'])
-# @login_required
-# @user_passes_test
+@login_required
 def update(request):
     request.data['user']=request.user.id
-    doctor=request.user.doctor
-    serializer = DoctorSerializer(doctor,data=request.data)
+    patient=request.user.patient
+    serializer = PatientSerializer(patient,data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

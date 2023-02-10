@@ -1,6 +1,7 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from doctor.models import Doctor
+from patient.models import Patient
 # Create your models here.
 DAYS = (
     ("sat", "Saturday"),
@@ -22,10 +23,12 @@ class Schedule(models.Model):
     
 class Appointment(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    # patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     def __str__(self):
-        # title  = f'{self.patient.id} {self.patient.name} {self.schedule.doctor.name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
-        
-        return self.schedule.doctor.first_name
+        if self.patient:
+            patient= f'{self.patient.id}- {self.patient.first_name} {self.patient.middle_name} {self.patient.last_name}'
+            title  = f'{patient} {self.schedule.doctor.first_name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
+            return title
+        return f'{self.schedule.doctor.first_name} {self.start_time.strftime("%d/%m/%Y %H:%M")} '
