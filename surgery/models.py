@@ -26,6 +26,7 @@ class Surgery(models.Model):
     start_time = models.DateTimeField(
         validators=[validate_start_time_end_time])
     end_time = models.DateTimeField(validators=[validate_start_time_end_time])
+    surgery_type = models.ForeignKey('SurgeryType', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Surgery'
@@ -40,3 +41,14 @@ class Surgery(models.Model):
 
         if Surgery.objects.filter(start_time__lte=self.end_time, end_time__gte=self.end_time, room=self.room).exists():
             raise ValidationError("Surgery overlaps with another surgery.")
+
+
+class SurgeryType(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Surgery Type'
+        verbose_name_plural = 'Surgery Types'
