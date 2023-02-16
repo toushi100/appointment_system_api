@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Surgery, SurgeryType
+from .models import Surgery
 
 
 class SurgeryAdmin(admin.ModelAdmin):
@@ -9,12 +9,5 @@ class SurgeryAdmin(admin.ModelAdmin):
     ordering = ('room', 'start_time', 'end_time')
 
 
-class SurgeryTypeAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    list_filter = ('name',)
-    search_fields = ('name',)
-    ordering = ('name',)
-
-
 admin.site.register(Surgery, SurgeryAdmin)
-admin.site.register(SurgeryType, SurgeryTypeAdmin)
+
