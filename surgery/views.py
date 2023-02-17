@@ -37,3 +37,14 @@ def create(request):
         serializers.save()
         return Response(serializers.data, status=status.HTTP_201_CREATED)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT', 'PATCH'])
+def update(request, pk):
+    surgery = Surgery.objects.get(id=pk)
+    serializers = SurgerySerializer(instance=surgery, data=request.data, partial=True)
+    if serializers.is_valid():
+        serializers.save()
+        return Response(serializers.data, status=status.HTTP_200_OK)
+    return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
