@@ -12,7 +12,7 @@ class IntensiveCareUnit(models.Model):
     bed = models.CharField(max_length=100, choices=bed_choices)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    estimated_time = models.DateTimeField()
+    estimated_time = models.DurationField()
    
     def __str__(self):
         return f'{self.patient} {self.bed} {self.start_time} {self.end_time} {self.estimated_time}'
