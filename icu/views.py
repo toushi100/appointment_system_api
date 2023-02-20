@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
+from .fiters import IntensiveCareUnitFilter
 
 
 @api_view(['POST'])
@@ -16,7 +17,10 @@ def create(request):
 
 @api_view(['GET'])
 def reserved_icu_beds(request):
+    
+    filters = request.data.get('filters', {})
     icu = IntensiveCareUnit.objects.filter(start_time__lte=timezone.now(), end_time= None)
+    icu = IntensiveCareUnitFilter(filters, queryset=icu).qs
     serializers = showIntensiveCareUnitSerializer(icu, many=True)
     return Response(serializers.data)
 
