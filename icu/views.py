@@ -4,7 +4,7 @@ from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
-from .fiters import IntensiveCareUnitFilter
+from .filters import IntensiveCareUnitFilter
 
 
 @api_view(['POST'])
