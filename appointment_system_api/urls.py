@@ -13,6 +13,7 @@ urlpatterns = [
     path('patient/', include('patient.urls')),
     path('surgery/', include('surgery.urls')),
     path('icu/', include('icu.urls')),
+    path('incubator/', include('incubator.urls')),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

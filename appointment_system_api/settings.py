@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'patient',
     'surgery',
     'icu',
+    'incubator',
     'api',
 ]
 
