@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='surgery',
             name='end_time',
-            field=models.DateTimeField(default=None, validators=[surgery.models.validate_start_time_end_time]),
+            field=models.DateTimeField(default=None),
         ),
     ]

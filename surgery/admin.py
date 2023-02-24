@@ -3,7 +3,7 @@ from .models import Surgery
 
 
 class SurgeryAdmin(admin.ModelAdmin):
-    list_display = ('id','room', 'start_time', 'end_time',  'patient')
+    list_display = ('id','room', 'start_time', 'end_time',  'patient','estimated_time')
     list_filter = ('room', 'start_time', 'end_time')
     search_fields = ('room', 'start_time', 'end_time')
     ordering = ('id','room', 'start_time', 'end_time')

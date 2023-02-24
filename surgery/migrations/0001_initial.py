@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('room', models.CharField(choices=[('OR_1', 'Operation Room 1'), ('OR_2', 'Operation Room 2'), ('OR_3', 'Operation Room 3')], max_length=100)),
-                ('start_time', models.DateTimeField(validators=[surgery.models.validate_start_time_end_time])),
-                ('end_time', models.DateTimeField(validators=[surgery.models.validate_start_time_end_time])),
+                ('start_time', models.DateTimeField()),
+                ('end_time', models.DateTimeField()),
                 ('doctors', models.ManyToManyField(to='doctor.doctor')),
                 ('patient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='patient.patient')),
             ],
