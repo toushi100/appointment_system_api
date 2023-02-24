@@ -18,20 +18,14 @@ surgery_type_choices = (
     ('4', 'Lung Surgery'),
     ('5', 'Other'),
 )
-def validate_start_time_end_time(value):
-    if value < timezone.now():
-        raise ValidationError(
-             _('%(value)s is not a valid start time'),
-            params={'value': value},
-            )
+
     
 class Surgery(models.Model):
     doctors = models.ManyToManyField(Doctor)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     room = models.CharField(max_length=100, choices=ROOM_CHOICES)
-    start_time = models.DateTimeField(
-        validators=[validate_start_time_end_time])
-    end_time = models.DateTimeField(validators=[validate_start_time_end_time],default=None, blank=True, null=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(blank=True, null=True)
     estimated_time = models.DurationField(default=timedelta(minutes=30))
     surgery_type = models.CharField(max_length=100, choices=surgery_type_choices, default='5')
     
@@ -41,13 +35,11 @@ class Surgery(models.Model):
         verbose_name_plural = 'Surgeries'
 
     def clean(self):
-        if self.start_time > self.end_time:
+        
+        if self.end_time and self.start_time > self.end_time:
             raise ValidationError("Start time must be before end time.")
 
-        if Surgery.objects.filter(start_time__lte=self.start_time, end_time__gte=self.start_time, room=self.room).exists():
-            raise ValidationError("Surgery overlaps with another surgery.")
-
-        if Surgery.objects.filter(start_time__lte=self.end_time, end_time__gte=self.end_time, room=self.room).exists():
+        if self.pk is None and Surgery.objects.filter(end_time=None, room=self.room).exists():
             raise ValidationError("Surgery overlaps with another surgery.")
 
 
