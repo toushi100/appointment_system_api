@@ -12,7 +12,10 @@ from django.utils import timezone
 @api_view(['post'])
 @login_required
 def create(request):
-    request.data['doctor']=request.user.doctor.id
+    doctor = request.user.doctor
+    request.data['doctor']=doctor.id
+    if doctor.status  != 'active':
+        return Response({'error':'Doctor is not active'}, status=status.HTTP_400_BAD_REQUEST)
     serializer = ScheduleSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
