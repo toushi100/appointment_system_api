@@ -59,3 +59,16 @@ def list_reserved(request):
 )
     serializer = ShowAppointmentSerializer(appointments, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['put','patch'])
+def cancel(request, pk):
+    patient = request.user.patient
+    appointment = get_object_or_404(Appointment, id = pk)
+    if patient != appointment.patient:
+        return Response({'error':'You are not the owner of this appointment'}, status=status.HTTP_400_BAD_REQUEST)
+    serializer = AppointmentSerializer(appointment, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

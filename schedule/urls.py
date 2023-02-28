@@ -6,4 +6,5 @@ urlpatterns = [
     path('reserve/<int:pk>/', reserve, name='reserve'),
     path('list_available/<int:doctor_id>/', list_available, name='list_available'),
     path('list_reserved/', list_reserved, name='list_reserved'),
+    path('cancel/<int:pk>/', cancel, name='cancel')
 ]
