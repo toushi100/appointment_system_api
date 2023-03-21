@@ -7,4 +7,4 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=50, unique=True, null=True)
     date_of_birth = models.DateField(null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='patient')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='patient', null=True, blank=True)

@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from user.models import User
 from django.contrib.auth.decorators import login_required, permission_required
+from .filters import DoctorFilter
 
 # Create your views here.
 @api_view(['post'])
@@ -38,4 +39,12 @@ def update(request):
 def list(request):
     speciality = Speciality.objects.all()
     serializer = SpecialitySerializer(speciality, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['get'])
+def index(request):
+    doctors = Doctor.objects.all()
+    filters = request.data.get('filters', {})
+    doctors = DoctorFilter(filters, queryset=doctors).qs
+    serializer = DoctorSerializer(doctors, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
