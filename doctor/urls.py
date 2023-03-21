@@ -6,4 +6,5 @@ urlpatterns = [
     path('show/<int:pk>/',show, name='show'),
     path('update/',update, name='update'),
     path('list/',list, name='list'),
+    path('index/',index, name='index'),
 ]

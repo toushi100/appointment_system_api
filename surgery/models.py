@@ -28,6 +28,7 @@ class Surgery(models.Model):
     end_time = models.DateTimeField(blank=True, null=True)
     estimated_time = models.DurationField(default=timedelta(minutes=30))
     surgery_type = models.CharField(max_length=100, choices=surgery_type_choices, default='5')
+    notes = models.TextField(blank=True, null=True)
     
 
     class Meta:
