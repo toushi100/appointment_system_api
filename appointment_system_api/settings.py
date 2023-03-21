@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'icu',
     'incubator',
     'bloodbank',
+    'service',
     'api',
 ]
 

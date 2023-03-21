@@ -15,6 +15,7 @@ urlpatterns = [
     path('icu/', include('icu.urls')),
     path('incubator/', include('incubator.urls')),
     path('bloodbank/', include('bloodbank.urls')),
+    path('service/', include('service.urls')),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
