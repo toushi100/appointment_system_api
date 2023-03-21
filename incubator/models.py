@@ -18,6 +18,8 @@ class Incubator(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     incubator = models.CharField(max_length=100, choices=INCUBATOR_CHOICES)
+    notes = models.TextField(blank=True, null=True)
+    gardian_name = models.CharField(max_length=100, blank=True, null=True)
 
     def clean(self):
         if self.start_date and self.end_date and self.start_date > self.end_date:
