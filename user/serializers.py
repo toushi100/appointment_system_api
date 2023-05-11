@@ -15,14 +15,20 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def get_patient(self, obj):
-        patient = obj.patient
-        serializer = PatientSerializer(patient)
-        return serializer.data 
+        try:
+            patient = obj.patient
+            serializer = PatientSerializer(patient)
+            return serializer.data
+        except:
+            return None
     
     def get_doctor(self, obj):
-        patient = obj.doctor
-        serializer = DoctorSerializer(patient)
-        return serializer.data 
+        try:
+            patient = obj.doctor
+            serializer = DoctorSerializer(patient)
+            return serializer.data 
+        except:
+            return None
  
     def create(self, validated_data):
         password = validated_data.pop('password', None)
