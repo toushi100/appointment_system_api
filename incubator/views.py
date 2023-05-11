@@ -17,8 +17,11 @@ def create(request):
 
 @api_view(['GET'])
 def reserved_incubators(request):
-    
-    filters = request.data.get('filters', {})
+    filters = {
+        "patient": request.GET.get('patient'),
+        "incubator": request.GET.get('incubator'),
+        "start_date__gte": request.GET.get('start_date__gte'),
+    }
     icu = Incubator.objects.filter(start_date__lte=timezone.now(), end_date= None)
     icu = IncubatorFilter(filters, queryset=icu).qs
     serializers = ShowIncubatorSerializer(icu, many=True)

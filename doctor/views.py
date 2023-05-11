@@ -43,8 +43,10 @@ def list(request):
 
 @api_view(['get'])
 def index(request):
+    filters = {
+        'speciality': request.GET.get('speciality', None),
+    }
     doctors = Doctor.objects.all()
-    filters = request.data.get('filters', {})
     doctors = DoctorFilter(filters, queryset=doctors).qs
     serializer = DoctorSerializer(doctors, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

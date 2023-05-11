@@ -17,8 +17,12 @@ def create(request):
 
 @api_view(['GET'])
 def reserved_icu_beds(request):
-    
-    filters = request.data.get('filters', {})
+    filters = {
+        'patient': request.GET.get('patient', None),
+        'bed': request.GET.get('bed', None),
+        'estimated_time__gte': request.GET.get('estimated_time__gte', None),
+        'estimated_time__lte': request.GET.get('estimated_time__lte', None),
+    }
     icu = IntensiveCareUnit.objects.filter(start_time__lte=timezone.now(), end_time= None)
     icu = IntensiveCareUnitFilter(filters, queryset=icu).qs
     serializers = showIntensiveCareUnitSerializer(icu, many=True)

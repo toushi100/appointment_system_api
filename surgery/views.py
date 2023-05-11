@@ -11,7 +11,10 @@ from .filters import SurgeryFilter
 
 @api_view(['GET'])
 def index_past(request):
-    filters = request.data.get('filters', {})
+    filters = {
+        "doctor": request.GET.get('doctor'),
+        "surgery_type": request.GET.get('surgery_type')
+    }
     qs = Surgery.objects.filter(end_time__lt=timezone.now())
     past_surgeries = SurgeryFilter(filters, queryset=qs).qs
     serializer = ShowSurgerySerializer(past_surgeries, many=True)
@@ -20,11 +23,15 @@ def index_past(request):
 
 @api_view(['GET'])
 def index_upcoming(request):
-    filters = request.data.get('filters', {})
+    filters = {
+        "doctor": request.GET.get('doctor'),
+        "surgery_type": request.GET.get('surgery_type')
+    }
     qs = Surgery.objects.filter(start_time__gt=timezone.now())
     upcoming_surgeries = SurgeryFilter(filters, queryset=qs).qs
-    serializer =ShowSurgerySerializer(upcoming_surgeries, many=True)
+    serializer = ShowSurgerySerializer(upcoming_surgeries, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def create(request):
@@ -42,9 +49,9 @@ def create(request):
 @api_view(['PUT', 'PATCH'])
 def update(request, pk):
     surgery = Surgery.objects.get(id=pk)
-    serializers = SurgerySerializer(instance=surgery, data=request.data, partial=True)
+    serializers = SurgerySerializer(
+        instance=surgery, data=request.data, partial=True)
     if serializers.is_valid():
         serializers.save()
         return Response(serializers.data, status=status.HTTP_200_OK)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-    
