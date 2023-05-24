@@ -1,6 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,8 +15,11 @@ SECRET_KEY = 'django-insecure-2=3mzxc*obh+pvcisa4$xf)+%c9lfsh1#-)7nhv82_4=ix2a7f
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-
+POSTGRESQL_HOSTNAME=os.environ.get('POSTGRESQL_HOSTNAME')
+POSTGRESQL_PORT=os.environ.get('POSTGRESQL_PORT')
+POSTGRESQL_DATABASE_NAME=os.environ.get('POSTGRESQL_DATABASE_NAME')
+POSTGRESQL_USERNAME=os.environ.get('POSTGRESQL_USERNAME')
+POSTGRESQL_PASSWORD=os.environ.get('POSTGRESQL_PASSWORD')
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,11 +86,11 @@ WSGI_APPLICATION = 'appointment_system_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'appointment_system_development',
-        'USER': 'ahmed',
-        'PASSWORD': 'Adham85m',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': POSTGRESQL_DATABASE_NAME,
+        'USER': POSTGRESQL_USERNAME,
+        'PASSWORD': POSTGRESQL_PASSWORD,
+        'HOST': POSTGRESQL_HOSTNAME,
+        'PORT': POSTGRESQL_PORT
     }
 }
 
