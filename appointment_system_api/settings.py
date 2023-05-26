@@ -1,5 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,13 +14,14 @@ SECRET_KEY = 'django-insecure-2=3mzxc*obh+pvcisa4$xf)+%c9lfsh1#-)7nhv82_4=ix2a7f
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+load_dotenv()
 ALLOWED_HOSTS = ['*']
-POSTGRESQL_HOSTNAME=os.environ.get('POSTGRESQL_HOSTNAME')
-POSTGRESQL_PORT=os.environ.get('POSTGRESQL_PORT')
-POSTGRESQL_DATABASE_NAME=os.environ.get('POSTGRESQL_DATABASE_NAME')
-POSTGRESQL_USERNAME=os.environ.get('POSTGRESQL_USERNAME')
-POSTGRESQL_PASSWORD=os.environ.get('POSTGRESQL_PASSWORD')
+POSTGRESQL_HOSTNAME=os.getenv('POSTGRESQL_HOSTNAME')
+POSTGRESQL_PORT=os.getenv('POSTGRESQL_PORT')
+POSTGRESQL_DATABASE_NAME=os.getenv('POSTGRESQL_DATABASE_NAME')
+POSTGRESQL_USERNAME=os.getenv('POSTGRESQL_USERNAME')
+POSTGRESQL_PASSWORD=os.getenv('POSTGRESQL_PASSWORD')
+
 # Application definition
 
 INSTALLED_APPS = [
