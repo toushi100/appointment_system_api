@@ -28,7 +28,6 @@ def create(request):
 def show(request, pk):
     doctor = Doctor.objects.get(id=pk)
     schedule = Schedule.objects.get(doctor=doctor)
-    breakpoint()
     serializer = ShowScheduleSerializer(schedule, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
    
