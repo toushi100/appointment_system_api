@@ -16,11 +16,11 @@ SECRET_KEY = 'django-insecure-2=3mzxc*obh+pvcisa4$xf)+%c9lfsh1#-)7nhv82_4=ix2a7f
 DEBUG = True
 load_dotenv()
 ALLOWED_HOSTS = ['*']
-POSTGRESQL_HOSTNAME=os.getenv('POSTGRESQL_HOSTNAME')
-POSTGRESQL_PORT=os.getenv('POSTGRESQL_PORT')
-POSTGRESQL_DATABASE_NAME=os.getenv('POSTGRESQL_DATABASE_NAME')
-POSTGRESQL_USERNAME=os.getenv('POSTGRESQL_USERNAME')
-POSTGRESQL_PASSWORD=os.getenv('POSTGRESQL_PASSWORD')
+POSTGRESQL_HOSTNAME = os.getenv('POSTGRESQL_HOSTNAME')
+POSTGRESQL_PORT = os.getenv('POSTGRESQL_PORT')
+POSTGRESQL_DATABASE_NAME = os.getenv('POSTGRESQL_DATABASE_NAME')
+POSTGRESQL_USERNAME = os.getenv('POSTGRESQL_USERNAME')
+POSTGRESQL_PASSWORD = os.getenv('POSTGRESQL_PASSWORD')
 
 # Application definition
 
@@ -143,8 +143,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/staticfiles/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    BASE_DIR / "static", ]
+print(STATIC_ROOT)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
