@@ -20,3 +20,8 @@ def create(request):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(['get'])
+def index(request):
+    services = Service.objects.all()
+    serializer = ShowServiceSerializer(services, many=True)
+    return Response(serializer.data)
