@@ -27,7 +27,7 @@ def create(request):
 @api_view(['get'])
 def show(request, pk):
     doctor = Doctor.objects.get(id=pk)
-    schedule = Schedule.objects.get(doctor=doctor)
+    schedule = get_object_or_404(Schedule, doctor=doctor)
     serializer = ShowScheduleSerializer(schedule, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
    
